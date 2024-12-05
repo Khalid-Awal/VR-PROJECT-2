@@ -4,86 +4,74 @@ using UnityEngine;
 
 public class InteractionManagerScript : MonoBehaviour
 {
-    private float previousMouseX = 0f;
-    private float previousMouseY = 0f;
     public GameObject theCamera;
     public GameObject activeList;
-    public Transform handAnchor;
+    public Material nodeMat;
+
+    public Transform rightController; // Assign the right controller transform in the Unity Editor
+    public Transform leftController; // Assign the left controller transform in the Unity Editor
+
+    private bool increasing = false;
+
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
     void Update()
     {
         DoClick();
-      //  HandleRotation();
-        // ModulateNodeMaterial();
+        HandleRotation();
+        ModulateNodeMaterial();
     }
-    //  private void ModulateNodeMaterial()
-    // {
-    //     Color cc = nodeMat.color;
-    //     Color newColor = new Color(cc.r, cc.g, cc.b, cc.a);
 
-    //     if (increasing)
-    //     {
-
-    //         if (newColor.a >= 1)
-    //             increasing = false;
-    //         else
-    //             newColor.a += (.5f * Time.smoothDeltaTime);
-    //     }
-    //     else
-    //     {
-    //         if (newColor.a <= 0f)
-    //             increasing = true;
-    //         else
-    //             newColor.a -= (.5f * Time.smoothDeltaTime);
-    //     }
-
-    //     nodeMat.color = newColor;
-    // }
-
-
-    /*private void HandleRotation()
+    private void ModulateNodeMaterial()
     {
-        float currMouseX = Input.mousePosition.x;
-        float currMouseY = Input.mousePosition.y;
+        Color cc = nodeMat.color;
+        Color newColor = new Color(cc.r, cc.g, cc.b, cc.a);
 
-        float diffX = currMouseX - previousMouseX;
-        float diffY = currMouseY - previousMouseY;
+        if (increasing)
+        {
+            if (newColor.a >= 1)
+                increasing = false;
+            else
+                newColor.a += (.5f * Time.smoothDeltaTime);
+        }
+        else
+        {
+            if (newColor.a <= 0f)
+                increasing = true;
+            else
+                newColor.a -= (.5f * Time.smoothDeltaTime);
+        }
 
-        theCamera.transform.Rotate(new Vector3((-1 * diffY), diffX, 0));
-        Vector3 newRot = theCamera.transform.rotation.eulerAngles;
-
-        newRot.z = 0;
-
-        theCamera.transform.eulerAngles = newRot;
-
-        previousMouseX = currMouseX;
-        previousMouseY = currMouseY;
+        nodeMat.color = newColor;
     }
-    */
+
+    private void HandleRotation()
+    {
+        // You might want to adjust this for VR head movement instead of mouse input.
+    }
 
     private void DoClick()
     {
-        if(OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger))
+        // Replace mouse click detection with Oculus controller input
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch))
         {
-            //if (Input.GetMouseButtonDown(0))
-            Vector3 handPosition = handAnchor.transform.position;
-            Quaternion handRotation = handAnchor.transform.rotation;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            //
+            // Create a ray from the right controller's position and forward direction
+            Ray ray = new Ray(rightController.position, rightController.forward);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit))
             {
-                Debug.Log(hit.collider.gameObject.name);
+                Debug.Log($"Hit Object: {hit.collider.gameObject.name}");
+
+                // Change skybox material
                 Material theStoredMaterial = hit.collider.gameObject.GetComponent<NodeLoadingScript>().myMaterial;
                 RenderSettings.skybox = theStoredMaterial;
 
+                // Switch active list
                 GameObject theNodeList = hit.collider.gameObject.GetComponent<NodeLoadingScript>().myNodeList;
                 activeList.SetActive(false);
                 theNodeList.SetActive(true);
