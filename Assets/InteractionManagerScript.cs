@@ -46,7 +46,7 @@ public class InteractionManagerScript : MonoBehaviour
     // }
 
 
-    private void HandleRotation()
+    /*private void HandleRotation()
     {
         float currMouseX = Input.mousePosition.x;
         float currMouseY = Input.mousePosition.y;
@@ -64,15 +64,15 @@ public class InteractionManagerScript : MonoBehaviour
         previousMouseX = currMouseX;
         previousMouseY = currMouseY;
     }
-
+    */
 
     private void DoClick()
     {
-        //if(OVRInput.GetDown(OVRInput.Axis1D...)....
-        if (Input.GetMouseButtonDown(0))
+        if(OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger)
         {
-            // rightController.transform.position
-            // rightController.transform.rotation
+            //if (Input.GetMouseButtonDown(0))
+            rightController.transform.position;
+            rightController.transform.rotation;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             //
             RaycastHit hit;
