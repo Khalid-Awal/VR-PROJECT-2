@@ -2348,7 +2348,7 @@ Transform:
   m_GameObject: {fileID: 549284130}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.2259}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3082,6 +3082,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   theCamera: {fileID: 716447925}
   activeList: {fileID: 170469742}
+  handAnchor: {fileID: 716447923}
 --- !u!114 &716447929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3096,6 +3097,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   theCamera: {fileID: 716447925}
   activeList: {fileID: 170469742}
+  handAnchor: {fileID: 716447926}
 --- !u!1001 &723555536
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6126,6 +6128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   theCamera: {fileID: 963194225}
   activeList: {fileID: 170469742}
+  handAnchor: {fileID: 0}
 --- !u!4 &1580071479
 Transform:
   m_ObjectHideFlags: 0

@@ -8,6 +8,7 @@ public class InteractionManagerScript : MonoBehaviour
     private float previousMouseY = 0f;
     public GameObject theCamera;
     public GameObject activeList;
+    public Transform handAnchor;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +19,7 @@ public class InteractionManagerScript : MonoBehaviour
     void Update()
     {
         DoClick();
-        HandleRotation();
+      //  HandleRotation();
         // ModulateNodeMaterial();
     }
     //  private void ModulateNodeMaterial()
@@ -68,11 +69,11 @@ public class InteractionManagerScript : MonoBehaviour
 
     private void DoClick()
     {
-        if(OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger)
+        if(OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger))
         {
             //if (Input.GetMouseButtonDown(0))
-            rightController.transform.position;
-            rightController.transform.rotation;
+            Vector3 handPosition = handAnchor.transform.position;
+            Quaternion handRotation = handAnchor.transform.rotation;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             //
             RaycastHit hit;
